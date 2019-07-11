@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>My Website</title>
+    </head>
+    <body ng-app="myApp">
+        <!-- load angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+
+        <!-- load app -->
+        <script src="app.js"></script>
+
+        <!-- load controllers -->
+        <script src="pages/getAboutInfo/getAboutInfoController.js"></script>
+
+        <!-- the website -->
+        <div ng-controller="getAboutInfoController as getAboutInfoCtrl">
+            <form name="getAboutInfoForm" ng-submit="submit()" novalidate>
+
+                <br>
+                category1 : <select name="category1" id="category1" class="form-control" ng-model="category1" required>
+                <option value="shopping">london</option>
+                <option value="museum">Museum</option>
+                <option value="resturant">Resturant</option>
+                <option value="attraction">Attraction</option>
+            </select>
+
+                <input ng-disabled="getAboutInfoForm.$invalid" ng-click="myFunc()" type="submit" id="submit" value="Submit">
+
+
+            </form>
+
+            <p>{{ answer }}</p>
+        </div>
+    </body>
+</html>

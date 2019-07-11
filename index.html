@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Yerushaláyim4U</title>
+        <!-- load angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+        <script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
+
+        <!-- load CSS -->
+        <link rel="stylesheet" href="style.css">
+
+        <!-- load Bootstrap and its dependencies -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <!-- load leaflet's script and style files -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+              integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+              crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+                integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+                crossorigin=""></script>
+
+        <!-- load app -->
+        <script src="app.js"></script>
+
+        <!-- load controllers -->
+        <script src="pages/about/aboutController.js"></script>
+        <script src="pages/login/loginController.js"></script>
+        <script src="pages/register/registerController.js"></script>
+        <script src="pages/poi/poiController.js"></script>
+        <script src="pages/http/httpController.js"></script>
+        <script src="pages/restorePassword/restorePasswordController.js"></script>
+        <script src="pages/insertQuestion/insertQuestionController.js"></script>
+        <script src="pages/getCities/getCitiesController.js"></script>
+        <script src="pages/getAboutInfo/getAboutInfoController.js"></script>
+        <script src="pages/add_new_POI/add_new_POI_Controller.js"></script>
+        <script src="pages/getRandomPOI/getRandomPOIController.js"></script>
+        <script src="pages/get_attractions_by_city/get_attractions_by_cityController.js"></script>
+        <script src="pages/get_attractions_by_category/get_attractions_by_categoryController.js"></script>
+        <script src="pages/get_attractions_by_name/get_attractions_by_nameController.js"></script>
+        <script src="pages/move_to_POI/move_to_POIController.js"></script>
+        <script src="pages/save_attraction/save_attractionController.js"></script>
+        <script src="pages/get_saved_attractions/get_saved_attractionsController.js"></script>
+        <script src="pages/remove_saved_attraction/remove_saved_attractionController.js"></script>
+        <script src="pages/save_review/save_reviewController.js"></script>
+        <script src="pages/getPOIinfo/getPOIinfoController.js"></script>
+
+        <!-- load leaflet's script and style files -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+              integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+              crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+                integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+                crossorigin=""></script>
+    </head>
+    <body id="body" ng-app="myApp">
+
+        <!-- menu -->
+        <div id='menu' ng-controller="app.js"  >
+            <ul id="menu_ul" ng-controller="app.js">
+                <li id="menu_home" class="active" onclick="selectMenuItem('menu_ul','menu_home')">
+                    <a href='#!'>Home</a>
+                </li>
+                <li id="menu_dropdown_about" ng-controller="app.js"  class="hidden" ng-show = "role==='loggedIn'" onclick="selectMenuItem('menu_ul','menu_dropdown_about')">
+                    <a id="menu_dropdown_about_a" href="" class="dropdown-toggle" data-toggle="dropdown">Account</a>
+                    <div id="menu_about_div" class="hidden dropdown-menu">
+                        <a href='#!restorePassword' class="dropdown-item">Restore Password</a>
+                        <a href='#!insertQuestion' class="dropdown-item">New Password Question</a>
+<!--                        <a href='#!getCities' class="dropdown-item">Browse City List</a>-->
+<!--                        <a href='#!getAboutInfo' class="dropdown-item">Browse City Info</a>-->
+                        <a href='#!getRandomPOI' class="dropdown-item">Random Attraction</a>
+                        <a href='#!save_attraction' class="dropdown-item">Add to Favourites</a>
+                        <a href='#!get_saved_attractions' class="dropdown-item">Favourites</a>
+                        <a href='#!remove_saved_attraction' class="dropdown-item">Remove Favourite List</a>
+                        <a href='#!save_review' class="dropdown-item">Review Attraction</a>
+                    </div>
+                </li>
+                <li id="menu_dropdown_explore" class="hidden" ng-show = "role==='loggedIn'" onclick="selectMenuItem('menu_ul','menu_dropdown_explore')">
+                    <a id="menu_dropdown_explore_a" href="" class="dropdown-toggle" data-toggle="dropdown">Explore</a>
+                    <div id="menu_explore_div" class="hidden dropdown-menu">
+<!--                        <a href='#!get_attractions_by_city' class="dropdown-item">by City...</a>-->
+                        <a href='#!get_attractions_by_category' class="dropdown-item">by Category...</a>
+                        <a href='#!get_attractions_by_name' class="dropdown-item">by Name...</a>
+                    </div>
+                </li>
+                <li id="menu_about" class="hidden" ng-show = "role==='loggedIn'" onclick="selectMenuItem('menu_ul','menu_about')">
+                    <a href='#!about'>About</a>
+                </li>
+                <li id="menu_login" class="hidden" ng-show = "role==='guest'" onclick="selectMenuItem('menu_ul','menu_login')">
+                    <a href='#!login'>Login</a>
+                </li>
+                <li id="menu_register" class="hidden" ng-show = "role==='guest'"  onclick="selectMenuItem('menu_ul','menu_register')">
+                    <a href='#!register'>Register</a>
+                </li>
+                <li id="menu_poi" class="hidden" ng-show = "role==='loggedIn'" onclick="selectMenuItem('menu_ul','menu_poi')">
+                    <a href='#!poi'>POI</a>
+                </li>
+                <li id="menu_map" class="hidden" onclick="selectMenuItem('menu_ul','menu_map')">
+                    <a href='#!getPOIinfo'>Map</a>
+                </li>
+<!--                <li id="menu_http" class="hidden" onclick="selectMenuItem('menu_ul','menu_http')">-->
+<!--                    <a href='#!httpRequest'>httpRequest</a>-->
+<!--                </li>-->
+<!--                <li id="menu_add_new_poi" class="hidden" onclick="selectMenuItem('menu_ul','menu_add_new_poi')">-->
+<!--                    <a href='#!add_new_POI'>add_new_POI</a>-->
+<!--                </li>-->
+                <li class="align-center" style="float:right;">
+                    <a style="float:right;" ng-controller="app.js" class="hidden">{{ hello_user }}</a>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- home menu jumbotron -->
+        <div id="home_jumbo" class="jumbotron text-center">
+            <h1 id="vaction_heading" class="display-1">Yerushaláyim4U</h1>
+            <h3 id="vaction_sub_heading" class="display-4">Pack up. We'll do the rest.</h3>
+        </div>
+
+        <!-- this script handles the menu selection logic -->
+        <script>
+            function selectMenuItem(root,item_id){
+                //alert("selecting...");
+                var children = document.getElementById(root).children;
+                var i;
+                for(i = 0 ; i < children.length ; i++){
+                    if(children[i].id.includes("dropdown")){
+                        selectMenuItem(children[i].id,children[i].id + '_a');//relies on naming conventions
+                    }
+                    children[i].setAttribute('class','hidden');
+                }
+                document.getElementById(item_id).setAttribute('class','active');
+            }
+        </script>
+
+        <!-- This section changes as the hashbang changes -->
+        <div class="content" ng-view></div>
+        <!-- Reference - Quick start - leaflet.js -->
+        <div id="mapid" style="width: 600px; height: 400px;   margin-left: auto; margin-right: auto; position: relative; outline: none;" class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" ng-show = "role==='loggedIn'"><div align="center" class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-20px, -33px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 17; transform: translate3d(17px, 12px, 0px) scale(0.5);"></div><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(132px, 98px, 0px) scale(1);"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4093/2723.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-104px, -159px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4094/2723.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(152px, -159px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4093/2724.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-104px, 97px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4094/2724.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(152px, 97px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4092/2723.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-360px, -159px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4095/2723.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(408px, -159px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4092/2724.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-360px, 97px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4095/2724.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(408px, 97px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4094/2725.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(152px, 353px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4093/2725.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-104px, 353px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.tiles.mapbox.com/v4/mapbox.streets/13/4095/2725.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(408px, 353px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-shadow-pane"><img src="https://unpkg.com/leaflet@1.5.1/dist/images/marker-shadow.png" class="leaflet-marker-shadow leaflet-zoom-animated" alt="" style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; transform: translate3d(272px, 277px, 0px);"></div><div class="leaflet-pane leaflet-overlay-pane"><svg pointer-events="none" class="leaflet-zoom-animated" width="720" height="480" viewBox="-40 -7 720 480" style="transform: translate3d(-40px, -7px, 0px);"><g><path class="leaflet-interactive" stroke="red" stroke-opacity="1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#f03" fill-opacity="0.5" fill-rule="evenodd" d="M113.20355555554852,201.94704600190744a42,42 0 1,0 84,0 a42,42 0 1,0 -84,0 "></path><path class="leaflet-interactive" stroke="#3388ff" stroke-opacity="1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#3388ff" fill-opacity="0.2" fill-rule="evenodd" d="M330 193L446 249L522 183z"></path></g></svg></div><div class="leaflet-pane leaflet-marker-pane"><img src="https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" alt="" tabindex="0" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(272px, 277px, 0px); z-index: 277;"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(1.0481e+06px, 697382px, 0px) scale(4096);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in">+</a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out">−</a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a></div></div></div></div>
+        <script>
+
+            var latitude   = 31.77617;
+            var north_south = '°N';
+            if(latitude < 0){north_south='°S';}
+            var longitude = 35.23583;
+            var east_west = '°E';
+            if(longitude < 0){east_west='°W';}
+            var initialZoom = 13;
+            var mymap = L.map('mapid').setView([latitude, longitude], initialZoom);
+
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox.streets'
+            }).addTo(mymap);
+
+            var popup = L.popup();
+
+            function onMapClick(e) {
+                popup
+                    .setLatLng(e.latlng)
+                    .setContent("You clicked the map at " + e.latlng.toString())
+                    .openOn(mymap);
+            }
+
+            function addMarker(details){
+                var name = details[0];
+                var latitude   = parseFloat(details[1]);
+                var north_south = '°N';
+                if(latitude < 0){north_south='°S';}
+                var longitude = parseFloat(details[2]);
+                var east_west = '°E';
+                if(longitude < 0){east_west='°W';}
+
+                L.marker([latitude, longitude]).addTo(mymap)
+                    .bindPopup("<b>"+ name +"</b><br />"+ Math.abs(latitude) + north_south + "," + Math.abs(longitude) + east_west);
+            }
+
+            addMarker(['City Of David','31.77361','35.23555']);
+            addMarker(['West Wall','31.7767','35.2345']);
+            addMarker(['machane yehuda market','31.78555','35.21222']);
+            addMarker(['Teddi Stadium','31.77796','35.22363']);
+            addMarker(['Biblical Zoo','31.77796','35.22363']);
+            addMarker(['Israel Museum','31.77796','35.22363']);
+            addMarker(['Kiftsuba','31.77796','35.22363']);
+            addMarker(['Mamilla Boulevard','31.77796','35.22363']);
+
+            mymap.on('click', onMapClick);
+
+        </script>
+        <br/><br/><br/><br/>
+        <!-- Footer - keeps following the bottom of the screen as the user scrolls -->
+        <div class="footer">
+            <p>R&D Client Side beta version 2019-2019. No rights reserved.</p>
+
+        </div>
+    </body>
+</html>

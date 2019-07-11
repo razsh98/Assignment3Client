@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>My Website</title>
+</head>
+<body ng-app="myApp">
+<!-- load angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+
+<!-- load app -->
+<script src="app.js"></script>
+
+<!-- load controllers -->
+<script src="pages/save_review/save_reviewController.js"></script>
+
+<!-- the website -->
+<div ng-controller="save_reviewController as save_reviewCtrl">
+    <form name="insertQuestionForm" ng-submit="submit()" novalidate>
+        review : <input type="text" name="uname" ng-model="uname" required ng-minlength="0" class="form-control">
+        <span ng-show="insertQuestionForm.uname.$dirty && insertQuestionForm.uname.$error.required">This is required! </span>
+        <span ng-show="insertQuestionForm.uname.$dirty && insertQuestionForm.uname.$error.minlength">Minimum length is 4 </span>
+        <span ng-show="insertQuestionForm.uname.$dirty && insertQuestionForm.uname.$invalid">Invalid field</span>
+        <br>
+        POI ID : <input type="number" name="poiId" ng-model="poiId" required ng-minlength="0"  min="1" max="7" class="form-control">
+        <span ng-show="insertQuestionForm.poiId.$dirty && insertQuestionForm.poiId.$error.required">This is required! </span>
+        <span ng-show="insertQuestionForm.poiId.$dirty && insertQuestionForm.poiId.$invalid">Invalid field</span>
+        <br>
+        <br>
+        rate : <input type="number" name="rate" ng-model="rate" required ng-minlength="0" min="1" max="5" class="form-control">
+        <span ng-show="insertQuestionForm.poiId.$dirty && insertQuestionForm.poiId.$error.required">This is required! </span>
+        <span ng-show="insertQuestionForm.poiId.$dirty && insertQuestionForm.poiId.$invalid">Invalid field</span>
+        <br>
+        <br>
+        <input ng-disabled="insertQuestionForm.$invalid" ng-click="myFunc()" type="submit" id="submit" value="Submit">
+
+
+    </form>
+
+    <p>{{ answer }}</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>My Website</title>
+    </head>
+    <body ng-app="myApp">
+        <!-- load angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+
+        <!-- load app -->
+        <script src="app.js"></script>
+
+        <!-- load controllers -->
+        <script src="pages/save_attraction/save_attractionController.js"></script>
+
+        <!-- the website -->
+        <div ng-controller="save_attractionController as save_attractionCtrl" align="center">
+            <form name="save_attractionForm" ng-submit="submit()" novalidate>
+                POI ID : <input type="number" name="uname" ng-model="uname" required min="1" max="7">
+
+
+                <input ng-disabled="save_attractionForm.$invalid" ng-click="myFunc()" type="submit" id="submit" value="Submit">
+
+
+            </form>
+
+            <p>{{ answer }}</p>
+        </div>
+    </body>
+</html>

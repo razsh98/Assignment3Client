@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>My Website</title>
+    </head>
+    <body ng-app="myApp">
+        <!-- load angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+
+        <!-- load app -->
+        <script src="app.js"></script>
+
+        <!-- load controllers -->
+        <script src="pages/remove_saved_attraction/remove_saved_attractionController.js"></script>
+
+        <!-- the website -->
+        <div ng-controller="remove_saved_attractionController as remove_saved_attractionCtrl" align="center">
+            <form name="remove_saved_attractionForm" ng-submit="submit()" novalidate>
+                <br>
+                Name : <input type="number" name="uname" ng-model="uname" required ng-minlength="0" max="7" min="1">
+
+
+                <input ng-disabled="remove_saved_attractionForm.$invalid" ng-click="myFunc()" type="submit" id="submit" value="Submit">
+
+
+            </form>
+
+            <p>{{ answer }}</p>
+        </div>
+    </body>
+</html>

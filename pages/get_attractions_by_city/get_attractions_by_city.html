@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>My Website</title>
+    </head>
+    <body ng-app="myApp">
+        <!-- load angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+
+        <!-- load app -->
+        <script src="app.js"></script>
+
+        <!-- load controllers -->
+        <script src="pages/get_attractions_by_city/get_attractions_by_cityController.js"></script>
+
+        <!-- the website -->
+        <div ng-controller="get_attractions_by_cityController as get_attractions_by_cityCtrl">
+            <form name="get_attractions_by_cityForm" ng-submit="submit()" novalidate>
+
+                <br>
+                category1 : <select name="category1" id="category1" class="form-control" ng-model="category1" required>
+                <option value="london">london</option>
+
+            </select>
+
+                <input ng-disabled="get_attractions_by_cityForm.$invalid" ng-click="myFunc()" type="submit" id="submit" value="Submit">
+
+
+            </form>
+
+            <p>{{ answer }}</p>
+        </div>
+    </body>
+</html>

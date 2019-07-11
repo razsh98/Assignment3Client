@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>My Website</title>
+</head>
+<body ng-app="myApp">
+<!-- load angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+
+<!-- load app -->
+<script src="app.js"></script>
+
+<!-- load controllers -->
+<script src="pages/getRandomPOI/getRandomPOIController.js"></script>
+
+<!-- the website -->
+<div ng-controller="getRandomPOIController as getRandomPOICtrl">
+    <form name="getRandomPOIForm" ng-submit="submit()" novalidate>
+        amount : <input type="number" name="uname" ng-model="uname" class="form-control" required min="0" max="7" >
+        <br>
+        <input ng-disabled="getRandomPOIForm.$invalid"
+               ng-click="myFunc()" type="submit" id="submit" value="Submit">
+
+
+    </form>
+
+    <p>{{ answer }}</p>
+</div>
+</body>
+</html>
