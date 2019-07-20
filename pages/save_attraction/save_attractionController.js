@@ -1,17 +1,18 @@
 // login controller
 angular.module("myApp")
-.controller("save_attractionController", function ($scope,$http) {
+.controller("save_attractionController", function ($scope,$http,sharedProperties) {
     $scope.myFunc = function(userName) {
         // alert($scope.uname);
         // alert($scope.question2);
         self = this;
-        userName='a';
+        userName=sharedProperties.getProperty();
+        alert(userName);
         $http.get('http://localhost:3000/save_attraction/'
             +userName+'/'
             +$scope.uname).then(
                 function (response) {
-                    alert('inScope');
-                    $scope.answer = response.data;
+                    alert(response);
+                    $scope.answer = 'saved';
         });
     }
 });

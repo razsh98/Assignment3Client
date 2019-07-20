@@ -23,7 +23,11 @@
 
     </form>
 
-    <p>{{ answer }}</p>
-</div>
+    <p class="text-center" ng-repeat="poi in cities">
+        <span ng-bind="poi.id" ></span>.
+        <span ng-bind="poi.name" ></span><br>
+        <span ng-bind="poi.desc" ></span><br>
+        <img height="100%" width="100%" ng-src="{{ poi.image }}">
+    </p></div>
 </body>
 </html>

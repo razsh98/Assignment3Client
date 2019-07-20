@@ -21,6 +21,7 @@
                 <option value="shopping">Shopping</option>
                 <option value="museum">Museum</option>
                 <option value="resturant">Resturant</option>
+                <option value="resturant">Resturant</option>
                 <option value="attraction">Attraction</option>
             </select>
 
@@ -29,7 +30,12 @@
 
             </form>
 
-            <p>{{ answer }}</p>
+            <p class="text-center" ng-repeat="poi in cities">
+                <span ng-bind="poi.id" ></span>.
+                <span ng-bind="poi.name" ></span><br>
+                <span ng-bind="poi.desc" ></span><br>
+                <img height="100%" width="100%" ng-src="{{ poi.image }}">
+            </p>
         </div>
     </body>
 </html>

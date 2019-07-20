@@ -139,4 +139,20 @@ angular.module("myApp")
             $scope.recomend_pois1 = data[0].POI_ID+". "+data[0].name+".";
             $scope.recomend_pois2 = data[1].POI_ID+". "+data[1].name+".";
         });
+        $http.get('http://localhost:3000/get_attractions_by_name/a').then(
+            function (response) {
+                var POIJsons = response.data;
+
+                $scope.arrPOIAttraction = new Array();
+                for (var i=0; i<Object.keys(POIJsons).length; i++) {
+                    $scope.arrPOIAttraction.push({'id': POIJsons[i].POI_ID,
+                        'name': POIJsons[i].name,
+                        'latitude': POIJsons[i].latitude, 'longitude': POIJsons[i].longitude});
+                }
+                // var poi=arrPOIAttraction[0];
+
+                // var html = poi.id +". "+poi.name+ "<br><img src='"+poi.pic+"' >";
+
+                // $scope.answer.insertAdjacentHTML('afterend',html);
+            });
     });

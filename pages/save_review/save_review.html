@@ -20,7 +20,7 @@
         <span ng-show="insertQuestionForm.uname.$dirty && insertQuestionForm.uname.$error.minlength">Minimum length is 4 </span>
         <span ng-show="insertQuestionForm.uname.$dirty && insertQuestionForm.uname.$invalid">Invalid field</span>
         <br>
-        POI ID : <input type="number" name="poiId" ng-model="poiId" required ng-minlength="0"  min="1" max="7" class="form-control">
+        POI ID : <input type="number" name="poiId" ng-model="poiId" required ng-minlength="0"  min="1" max="20" class="form-control">
         <span ng-show="insertQuestionForm.poiId.$dirty && insertQuestionForm.poiId.$error.required">This is required! </span>
         <span ng-show="insertQuestionForm.poiId.$dirty && insertQuestionForm.poiId.$invalid">Invalid field</span>
         <br>
@@ -36,6 +36,12 @@
     </form>
 
     <p>{{ answer }}</p>
+    <p class="text-center" ng-repeat="poi in cities">
+        review :<span ng-bind="poi.id" ></span>.<br>
+        rate: <span ng-bind="poi.name" ></span><br>.
+        date : <span ng-bind="poi.image" ></span><br>
+        <br>
+    </p>
 </div>
 </body>
 </html>

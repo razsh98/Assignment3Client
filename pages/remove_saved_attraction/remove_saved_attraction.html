@@ -16,7 +16,7 @@
         <div ng-controller="remove_saved_attractionController as remove_saved_attractionCtrl" align="center">
             <form name="remove_saved_attractionForm" ng-submit="submit()" novalidate>
                 <br>
-                Name : <input type="number" name="uname" ng-model="uname" required ng-minlength="0" max="7" min="1">
+                Name : <input type="number" name="uname" ng-model="uname" required ng-minlength="0" max="20" min="1">
 
 
                 <input ng-disabled="remove_saved_attractionForm.$invalid" ng-click="myFunc()" type="submit" id="submit" value="Submit">

@@ -14,8 +14,8 @@
 
         <!-- the website -->
         <div ng-controller="get_attractions_by_nameController as get_attractions_by_nameCtrl">
-            <form name="get_attractions_by_nameForm" ng-submit="submit()" novalidate>
-                Name : <input type="text" name="uname" ng-model="uname" required ng-minlength="0" >
+            <form name="get_attractions_by_nameForm"  ng-submit="submit()" novalidate>
+                Name : <input type="text" name="uname" ng-model="uname" required ng-minlength="0" class="form-control" >
 
 
                 <input ng-disabled="get_attractions_by_nameForm.$invalid" ng-click="myFunc()" type="submit" id="submit" value="Submit">
@@ -23,7 +23,14 @@
 
             </form>
 
-            <p>{{ answer }}</p>
+<!--            <p>{{ arrPOIAttraction }}</p>-->
+
+            <p class="text-center" ng-repeat="poi in cities">
+                <span ng-bind="poi.id" ></span>.
+                <span ng-bind="poi.name" ></span><br>
+                <span ng-bind="poi.desc" ></span><br>
+                <img height="100%" width="100%" ng-src="{{ poi.image }}">
+            </p>
         </div>
     </body>
 </html>
